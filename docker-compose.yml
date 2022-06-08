@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  todo-database:
+    # image to fetch from docker hub
+    image: postgres:latest
+
+    # Environment variables for startup script
+    # container will use these variables
+    # to start the container with these define variables.
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: tododb
+    container_name: todo-database
+
+    # Mapping of container port to host
+    ports:
+      - "5432:5432"
