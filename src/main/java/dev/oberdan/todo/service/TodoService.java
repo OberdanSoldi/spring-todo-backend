@@ -4,7 +4,7 @@ import dev.oberdan.todo.domain.dto.TodoRequestDto;
 import dev.oberdan.todo.domain.dto.TodoResponseDto;
 import dev.oberdan.todo.domain.entity.Todo;
 import dev.oberdan.todo.repository.TodoRepository;
-import dev.oberdan.todo.service.adapter.TodoMapper;
+import dev.oberdan.todo.service.builder.TodoBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +16,17 @@ import java.util.stream.Collectors;
 public class TodoService {
 
     private final TodoRepository todoRepository;
-    private final TodoMapper todoMapper;
+    private final TodoBuilder todoBuilder;
 
     public List<TodoResponseDto> findAll() {
         final List<Todo> todos = todoRepository.findAll();
-        return todos.stream().map(todoMapper::toTodoResponseDto).collect(Collectors.toList());
+        return todos.stream().map(todoBuilder::toTodoResponseDto).collect(Collectors.toList());
     }
 
-    public TodoResponseDto create(TodoRequestDto todoRequestDto) {
-        var todo = todoMapper.toTodo(todoRequestDto);
+    public TodoRequestDto create(TodoRequestDto todoRequestDto) {
+        var todo = todoBuilder.toTodo(todoRequestDto);
         var createTodo = todoRepository.save(todo);
-        return todoMapper.toTodoResponseDto(createTodo);
+        return todoBuilder.toTodoRequestDto(createTodo);
     }
 
 }

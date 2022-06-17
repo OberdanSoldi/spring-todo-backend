@@ -17,13 +17,13 @@ public class TodoResource {
 
     private final TodoService todoService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<TodoResponseDto>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(todoService.findAll());
     }
 
-    @PostMapping("/")
-    public ResponseEntity<TodoResponseDto> create(@RequestBody final TodoRequestDto todoRequestDto) {
+    @PostMapping
+    public ResponseEntity<TodoRequestDto> create(@RequestBody final TodoRequestDto todoRequestDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(todoService.create(todoRequestDto));
     }
 }
